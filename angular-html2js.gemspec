@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Angular::Html2js::VERSION
   spec.authors       = ["Nicholas Clark"]
   spec.email         = ["nick.clark@k3integrations.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Angular HTML2JS allows you to use ng templates as first class citezens in the Rails/Sprockets world. Based on the karma-ng-html2js-preprocessor for Karma.}
+  spec.summary       = %q{AngularJS HTML templates in Sprockets and Rails}
+  spec.homepage      = "http://www.k3integrations.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
