@@ -45,7 +45,7 @@ angular.module(\'%s\', []).run(function($templateCache) {
       private
 
       def escapeContent(content)
-        content.gsub(/\n/, "\\\\n\' +\n   \'")
+        content.gsub(/\r?\n/, "\\\\n\' +\n   \'")
       end
 
     end

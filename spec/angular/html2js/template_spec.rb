@@ -19,6 +19,11 @@ module Angular
           and_content("first\nsecond")
       end
 
+      it 'should ignore Windows new lines' do
+        result = process "first\r\nsecond", 'path/tpl.html'
+        result.should_not include("\r")
+      end
+
       def process(template_str, file_name, locals={})
         template = Template.new { template_str }
         template.file = file_name
