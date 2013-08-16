@@ -1,4 +1,5 @@
 require 'tilt'
+require 'angular/html2js/configuration'
 
 module Angular
   module Html2js
@@ -32,13 +33,14 @@ angular.module(\'%s\', []).run(function($templateCache) {
       end
 
       def prepare
-        @config = Html2js.config
-        @cache_id_from_path = @config.cache_id_from_path
+        config = Html2js.config
+        @module_name = config.module_name
+        @cache_id_from_path = config.cache_id_from_path
       end
 
       def evaluate(scope, locals, &block)
-        if module_name
-          SINGLE_MODULE_TPL % [moduleName, moduleName, htmlPath, escapeContent(content)]
+        if @module_name
+          SINGLE_MODULE_TPL % [@module_name, @module_name, html_path, escapeContent(data)]
         else
           TEMPLATE % [html_path, html_path, escapeContent(data)]
         end

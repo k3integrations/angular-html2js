@@ -4,6 +4,7 @@ require 'angular/html2js/template'
 module Angular
   module Html2js
     describe Template do
+      before(:each) { Html2js.clear_config! }
 
       it 'should convert html to js code' do
         result = process '<h1>hello</h1>', 'tpl.html'
@@ -45,6 +46,30 @@ module Angular
             result.should define_module('generated_id_for/path/tpl.html').
               with_template_id('generated_id_for/path/tpl.html').
               and_content('<html></html>')
+          end
+        end
+
+        describe 'moduleName' do
+          before do
+            Html2js.configure do |config|
+              config.module_name = 'foo'
+            end
+          end
+
+          it 'should generate code with a given module name' do
+            html1 = '<span>one</span>'
+            result1 = process html1, 'path/tpl-one.html'
+            html2 = '<span>two</span>'
+            result2 = process html2, 'path/tpl-two.html'
+
+            both_results = result1 + result2
+            both_results.should define_module('foo').
+              with_template_id('path/tpl-one.html').
+              and_content(html1)
+
+            both_results.should define_module('foo').
+              with_template_id('path/tpl-two.html').
+              and_content(html2)
           end
         end
       end
