@@ -51,5 +51,3 @@ angular.module(\'%s\', []).run(function($templateCache) {
     end
   end
 end
-
-Tilt.register Angular::Html2js::Template, 'ng'

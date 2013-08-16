@@ -5,7 +5,6 @@ module Angular
   module Html2js
     describe Template do
 
-
       it 'should convert html to js code' do
         result = process '<h1>hello</h1>', 'tpl.html'
         result.should define_module('tpl.html').
@@ -21,7 +20,7 @@ module Angular
       end
 
       def process(template_str, file_name, locals={})
-        template = Tilt['ng'].new { template_str }
+        template = Template.new { template_str }
         template.file = file_name
         template.render(self, locals)
       end
