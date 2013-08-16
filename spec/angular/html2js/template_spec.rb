@@ -31,6 +31,24 @@ module Angular
           and_content("first\\second")
       end
 
+      describe 'configuration' do
+        describe 'cache_id_from_path ' do
+          before do
+            Html2js.configure do |config|
+              config.cache_id_from_path { |file_path| "generated_id_for/#{file_path}" }
+            end
+          end
+
+
+          it 'invokes custom transform block' do
+            result = process '<html></html>', 'path/tpl.html'
+            result.should define_module('generated_id_for/path/tpl.html').
+              with_template_id('generated_id_for/path/tpl.html').
+              and_content('<html></html>')
+          end
+        end
+      end
+
       def process(template_str, file_name, locals={})
         template = Template.new { template_str }
         template.file = file_name

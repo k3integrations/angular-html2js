@@ -32,13 +32,15 @@ angular.module(\'%s\', []).run(function($templateCache) {
       end
 
       def prepare
+        @config = Html2js.config
+        @cache_id_from_path = @config.cache_id_from_path
       end
 
       def evaluate(scope, locals, &block)
         if module_name
           SINGLE_MODULE_TPL % [moduleName, moduleName, htmlPath, escapeContent(content)]
         else
-          TEMPLATE % [file, file, escapeContent(data)]
+          TEMPLATE % [html_path, html_path, escapeContent(data)]
         end
       end
 
@@ -46,6 +48,10 @@ angular.module(\'%s\', []).run(function($templateCache) {
 
       def escapeContent(content)
         content.gsub(/\\/, '\\\\\\').gsub(/\r?\n/, "\\\\n\' +\n   \'")
+      end
+
+      def html_path
+        @cache_id_from_path && @cache_id_from_path.call(file) || file
       end
 
     end
