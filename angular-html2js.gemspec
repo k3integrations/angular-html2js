@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 2.12"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "pry"
+  spec.add_development_dependency "therubyracer"
+  spec.add_development_dependency "coffee-script"
 end
