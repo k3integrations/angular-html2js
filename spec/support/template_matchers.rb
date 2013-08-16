@@ -12,7 +12,7 @@ RSpec::Matchers.define :define_module do |module_name|
   match do |template|
     @modules = modules_from(template)
     @mod = @modules[module_name]
-    @content = @mod.templates[@template_id]
+    @content = @mod && @mod.templates[@template_id]
     has_module && has_template_id && has_content
   end
 
@@ -42,7 +42,7 @@ RSpec::Matchers.define :define_module do |module_name|
     failure_message
   end
 
-  def failure_message(not_msg: nil)
+  define_method :failure_message do |not_msg: nil|
     msg = "Template expected"
     msg += ' not' if not_msg
 
