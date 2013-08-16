@@ -24,6 +24,13 @@ module Angular
         result.should_not include("\r")
       end
 
+      it 'should preserve the backslash character' do
+        result = process "first\\second", 'path/tpl.html'
+        result.should define_module('path/tpl.html').
+          with_template_id('path/tpl.html').
+          and_content("first\\second")
+      end
+
       def process(template_str, file_name, locals={})
         template = Template.new { template_str }
         template.file = file_name
