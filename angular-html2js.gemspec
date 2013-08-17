@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rspec", "~> 2.12"
-  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rake", "~> 10.1.0"
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "therubyracer"
-  spec.add_development_dependency "coffee-script"
+  spec.add_development_dependency "therubyracer", "~> 0.11.4"
+  spec.add_development_dependency "coffee-script", "2.2.0"
 end
