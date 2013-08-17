@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Angular::Html2js::VERSION
   spec.authors       = ["Nicholas Clark"]
   spec.email         = ["nick.clark@k3integrations.com"]
-  spec.description   = %q{Angular HTML2JS allows you to use ng templates as first class citezens in the Rails/Sprockets world. Based on the karma-ng-html2js-preprocessor for Karma.}
+  spec.description   = %q{Angular HTML2JS allows you to use ng templates as first class citizens in the Rails/Sprockets world. Based on the karma-ng-html2js-preprocessor for Karma.}
   spec.summary       = %q{AngularJS HTML templates in Sprockets and Rails}
   spec.homepage      = "http://www.k3integrations.com"
   spec.license       = "MIT"
@@ -27,4 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "therubyracer", "~> 0.11.4"
   spec.add_development_dependency "coffee-script", "2.2.0"
+  spec.add_development_dependency "rails", "~> 4.0.0"
+  spec.add_development_dependency "capybara", "~> 2.1.0"
+  spec.add_development_dependency "sqlite3", "~> 1.3.7"
 end
