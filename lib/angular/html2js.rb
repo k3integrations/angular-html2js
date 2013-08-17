@@ -1,7 +1,3 @@
 require "angular/html2js/version"
-
-module Angular
-  module Html2js
-    # Your code goes here...
-  end
-end
+require "angular/html2js/engine"
+require 'angular/html2js/railtie' if defined?(Rails)

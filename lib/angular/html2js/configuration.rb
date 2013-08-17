@@ -10,25 +10,29 @@ module Angular
     end
 
 
-    def self.clear_config!
-      @config = nil
+    def self.reset_config!
+      config.reset!
     end
 
 
     class Configuration
       attr_accessor :module_name
 
-      def cache_id_from_path(&block)
+      def cache_id(&block)
         if block
-          @cache_id_from_path = block
+          @cache_id = block
         else
-          @cache_id_from_path
+          @cache_id
         end
       end
 
+      def reset!
+        @cache_id = @module_name = nil
+      end
 
       def method_missing(config_name, *)
-        raise "Sorry, there is no such configuration option named #{config_name}"
+        puts "Sorry, there is no such configuration option named #{config_name}"
+        super
       end
     end
   end

@@ -4,7 +4,6 @@ require 'angular/html2js/template'
 module Angular
   module Html2js
     describe Template do
-      before(:each) { Html2js.clear_config! }
 
       it 'should convert html to js code' do
         result = process '<h1>hello</h1>', 'tpl.html'
@@ -33,10 +32,12 @@ module Angular
       end
 
       describe 'configuration' do
-        describe 'cache_id_from_path ' do
+        after { Html2js.reset_config! }
+
+        describe 'cache_id_from_scope ' do
           before do
             Html2js.configure do |config|
-              config.cache_id_from_path { |file_path| "generated_id_for/#{file_path}" }
+              config.cache_id { |file_path| "generated_id_for/#{file_path}" }
             end
           end
 
@@ -50,11 +51,7 @@ module Angular
         end
 
         describe 'moduleName' do
-          before do
-            Html2js.configure do |config|
-              config.module_name = 'foo'
-            end
-          end
+          before { Html2js.configure { |c| c.module_name = 'foo' } }
 
           it 'should generate code with a given module name' do
             html1 = '<span>one</span>'

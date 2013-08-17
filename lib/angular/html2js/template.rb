@@ -6,6 +6,8 @@ module Angular
     class Template < Tilt::Template
       attr_accessor :file
 
+      self.default_mime_type = 'application/javascript'
+
       TEMPLATE = <<-TEMPLATE
 angular.module(\'%s\', []).run(function($templateCache) {
   $templateCache.put(\'%s\',
@@ -28,21 +30,20 @@ angular.module(\'%s\', []).run(function($templateCache) {
 })();
       SINGLE_MODULE_TPL
 
-      def module_name
-        nil
+      def config
+        Html2js.config
       end
 
-      def prepare
-        config = Html2js.config
-        @module_name = config.module_name
-        @cache_id_from_path = config.cache_id_from_path
-      end
+      def prepare; end
 
       def evaluate(scope, locals, &block)
+        @module_name = config.module_name
+        @cache_id = config.cache_id || default_cache_id_proc
+        @scope = scope
         if @module_name
-          SINGLE_MODULE_TPL % [@module_name, @module_name, html_path, escapeContent(data)]
+          SINGLE_MODULE_TPL % [@module_name, @module_name, cache_id, escapeContent(data)]
         else
-          TEMPLATE % [html_path, html_path, escapeContent(data)]
+          TEMPLATE % [cache_id, cache_id, escapeContent(data)]
         end
       end
 
@@ -52,8 +53,12 @@ angular.module(\'%s\', []).run(function($templateCache) {
         content.gsub(/\\/, '\\\\\\').gsub(/\r?\n/, "\\\\n\' +\n   \'")
       end
 
-      def html_path
-        @cache_id_from_path && @cache_id_from_path.call(file) || file
+      def cache_id
+        @cache_id.call(file, @scope)
+      end
+
+      def default_cache_id_proc
+        Proc.new { file }
       end
 
     end

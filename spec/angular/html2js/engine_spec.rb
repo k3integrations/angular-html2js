@@ -22,6 +22,10 @@ module Angular
       it 'recognizes them as javascript' do
         asset.content_type.should == 'application/javascript'
       end
+
+      it 'uses the logical path if no module_name is provided' do
+        asset.to_s.should include(".put('test'")
+      end
     end
   end
 end
