@@ -1,6 +1,6 @@
 # Angular-html2js
 
-Angular-html2js is based off the [karma-ng-html2js-preprocessor](www.google.com) project
+Angular-html2js is based off the [karma-ng-html2js-preprocessor](https://github.com/karma-runner/karma-ng-html2js-preprocessor) project
 that many Angular folks use. It makes your templates available through the asset-pipeline
 while still acting like Karam's ng-html2js, so it should feel familiar to those already
 using ng-html2js and should be less confusing for those following instructions in online
@@ -24,42 +24,106 @@ Or install it yourself as:
 
 ## Usage
 
-There are two ways that the Karma test runner (through karma-ng-html2js-preprocessor) enables
-you to use templates in a test.
+This gem adds support for AngularJS templates. Those familiar with the Karma
+test runner will be able to use the familiar `beforeEach(module('myTemplateModule'))`
+or `beforeEach(module('/your/template/file'))`. Additionally, you can now leverage
+sprockets to help you. Since Sprockets is the one doing the work, you can also
+use this outside of the test environment.
 
-1. You configure a default module to attach all templates to and load that module. Say you configured
-it to use the module name 'myTemplateModule':
+### Using Sprocket directives with templates included in global module (Recommended)
+
+1.  Configure a top level shared module
+
+    ```ruby
+    # In Rails
+    MyApp::Application.configure do
+      config.angular_html2js.module_name = 'MyApp'
+    end
+
+    # or Any
+    Angular::Html2js.configure do |config|
+      config.angular_html2js.module_name = 'MyApp'
+    end
+    ```
+2.  Now just require the template above the need code (perhaps a directive
 
     ```javascript
-    beforeEach(module('myTemplateModule'))
+    //= require my_template
+
+    angular.module('myApp').directive('myDirective', function($injectable){
+      { restrict: 'A'
+        templateUrl: 'myTemplate'
+        // Etc...
+      }}
+    });
     ```
 
-2. Or you let it make each template in a new module, named after the name of the file.
+### Using Sprocket directives with auto-generated modules (No configuration needed)
 
     ```javascript
-    beforeEach(module('/your/template/file.html'))
+    //= require my_template
+
+    angular.module('myApp', ['/full/path/to/myTemplate.html']).directive('myDirective', function($injectable){
+      { restrict: 'A'
+        templateUrl: '/full/path/to/myTemplate'
+        // Etc...
+      }}
+    });
     ```
 
+### Using Sprocket directives with custom secondary module
 
-The gem supports an additional method. You can use the sprockets built in directives to actually inline
-the template for you.
+1.  Configure a top level shared module
 
-```javascript
-//= require myTemplate.html
+    ```ruby
+    # In Rails
+    MyApp::Application.configure do
+    config.angular_html2js.module_name = 'MyTemplates'
+    end
+    ```
 
-angular.module('myApp').directive('myDirective', function($injectable){
-  { restrict: 'A'
-    templateUrl: 'myTemplate.html'
-    // Etc...
-  }}
-});
-```
+2.  Depend on that module
 
-This is awesome for two reasons:
+    ```javascript
+    //= require my_template
 
-1. You don't have to have a `beforeEach(module('your/template.html'))` anymore
-2. This will work in production. Now your directive file will already have it's template when
-the file is initially loaded!
+    angular.module('myApp', ['MyTemplates']).directive('myDirective', function($injectable){
+      { restrict: 'A'
+        templateUrl: '/full/path/to/myTemplate'
+        // Etc...
+      }}
+    });
+    ```
+
+### Using Sprocket directives with custom secondary module
+
+1.  Configure a top level shared module and custom cache id
+
+    ```ruby
+    # In Rails
+    MyApp::Application.configure do
+      config.angular_html2js.module_name = 'MyTemplates'
+
+      # `file` is the full file path
+      # `scope` is the Sprockets scope. This has handy things like scope.logical_path
+      #
+      config.angular_html2js.cache_id {|file_path, scope|
+        "myTemplates-#{scope.logical_path}"
+      }
+    end
+    ```
+
+2.  Depend on that module
+    ```javascript
+    //= require my_template
+
+    angular.module('myApp', ['MyTemplates']).directive('myDirective', function($injectable){
+      { restrict: 'A'
+        templateUrl: 'myTemplates-templates/myTpl'
+        // Etc...
+      }}
+    });
+    ```
 
 ## Contributing
 
