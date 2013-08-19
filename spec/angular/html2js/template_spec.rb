@@ -31,6 +31,13 @@ module Angular
           and_content("first\\second")
       end
 
+      it 'should preserve single quotes' do
+        result = process "var h = 'hello';", 'path/tpl.html'
+        result.should define_module('path/tpl.html').
+          with_template_id('path/tpl.html').
+          and_content("var h = 'hello';")
+      end
+
       describe 'configuration' do
         after { Html2js.reset_config! }
 
@@ -50,7 +57,7 @@ module Angular
           end
         end
 
-        describe 'moduleName' do
+        describe 'module_name' do
           before { Html2js.configure { |c| c.module_name = 'foo' } }
 
           it 'should generate code with a given module name' do

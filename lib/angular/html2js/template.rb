@@ -50,7 +50,7 @@ angular.module(\'%s\', []).run(function($templateCache) {
       private
 
       def escapeContent(content)
-        content.gsub(/\\/, '\\\\\\').gsub(/\r?\n/, "\\\\n\' +\n   \'")
+        content.gsub(/\\/, '\\\\\\').gsub("'", %q{\\\\'}).gsub(/\r?\n/, "\\\\n\' +\n   \'")
       end
 
       def cache_id
