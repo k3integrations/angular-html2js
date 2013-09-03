@@ -45,7 +45,7 @@ use this outside of the test environment.
       config.angular_html2js.module_name = 'MyApp'
     end
     ```
-2.  Now just require the template above the need code (perhaps a directive
+2.  Now just require the template above the code needing it (perhaps a directive)
 
     ```javascript
     //= require my_template
