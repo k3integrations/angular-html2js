@@ -1,4 +1,4 @@
-# Angular-html2js [![Gem Version](https://badge.fury.io/rb/angular-html2js.png)](http://badge.fury.io/rb/angular-html2js)
+# Angular-html2js <a href="http://badge.fury.io/rb/angular-html2js"><img src="https://badge.fury.io/rb/angular-html2js@2x.png" alt="Gem Version" height="18"></a>
 
 Angular-html2js is based off the Karma [preprocessor](https://github.com/karma-runner/karma-ng-html2js-preprocessor)
 that many Angular folks use. This gem makes your templates available through the Rails asset pipeline, Sprockets,
