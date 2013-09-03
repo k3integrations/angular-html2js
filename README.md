@@ -81,7 +81,7 @@ production!
     ```ruby
     # In Rails
     MyApp::Application.configure do
-        config.angular_html2js.module_name = 'MyTemplates'
+      config.angular_html2js.module_name = 'MyTemplates'
     end
     ```
 
