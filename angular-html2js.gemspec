@@ -13,9 +13,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "http://www.k3integrations.com"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files         = Dir["lib/**/*"] + ["LICENSE", "README.md"]
+  spec.test_files    = Dir["{spec,app}/**/*"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "tilt", "~> 1.0"
