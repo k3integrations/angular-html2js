@@ -21,6 +21,12 @@ module Angular
         page.should have_content "Hello World"
       end
 
+      it "enables Haml for js assets" do
+        visit '/assets/templates/test_haml.html'
+        page.should have_content "$templateCache"
+        page.body.should include "<h1>hello haml</h1>"
+      end
+
       describe "Configuration" do
         after { Html2js.reset_config! }
 

@@ -11,6 +11,7 @@ module Angular
       end
 
       initializer "angular_html2js.configure_rails_initialization" do
+        Sprockets.register_engine '.haml', Tilt::HamlTemplate
         Sprockets.register_engine '.ngt', Angular::Html2js::Engine
       end
     end

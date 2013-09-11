@@ -46,3 +46,4 @@ gem 'rails', '4.0.0'
 
 gem 'rspec'
 gem 'angular-html2js', path: '../'
+gem 'haml-rails'

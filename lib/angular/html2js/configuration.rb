@@ -16,7 +16,7 @@ module Angular
 
 
     class Configuration
-      attr_accessor :module_name
+      attr_accessor :module_name, :post_process_html
 
       def cache_id(&block)
         if block
