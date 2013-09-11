@@ -30,6 +30,8 @@ or `beforeEach(module('/your/template/file'))`. Additionally, you can now levera
 sprockets to help you. In Rails, this means that you can also inline your templates in
 production!
 
+#### Notice: You must include the extension *ngt* for your templates. (ex. `mytemplate.js.ngt`)
+
 ###  Include in global module (recommended)
 
 1.  Configure a top level shared module
