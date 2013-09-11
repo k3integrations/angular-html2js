@@ -15,7 +15,7 @@ module Angular
 
       before(:each) { FileUtils.rm_rf Rails.root.join('tmp', 'cache', 'assets', 'test') }
 
-      it "should setup rails to serve ng templates" do
+      it "sets up rails to serve ng templates" do
         visit '/assets/templates/test.js'
         page.should have_content "$templateCache"
         page.should have_content "Hello World"
@@ -25,6 +25,14 @@ module Angular
         visit '/assets/templates/test_haml.html'
         page.should have_content "$templateCache"
         page.body.should include "<h1>hello haml</h1>"
+      end
+
+      describe 'file with .html extension' do
+        it 'is processed by default' do
+          visit '/assets/templates/test_html.html'
+          page.should have_content "$templateCache"
+          page.body.should include "<h1>hello html</h1>"
+        end
       end
 
       describe "Configuration" do
