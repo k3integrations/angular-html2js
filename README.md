@@ -26,11 +26,32 @@ Or install it yourself as:
 
 This gem adds support for AngularJS templates. Those familiar with the Karma
 test runner will be able to use the familiar `beforeEach(module('myTemplateModule'))`
-or `beforeEach(module('/your/template/file'))`. Additionally, you can now leverage
+or `beforeEach(module('/your/template/file.html'))`. Additionally, you can now leverage
 sprockets to help you. In Rails, this means that you can also inline your templates in
 production!
 
-#### Notice: You must include the extension *ngt* for your templates. (ex. `mytemplate.js.ngt`)
+#### File naming
+
+All source files need to have the extension `.ngt`.
+
+```
+myTemplate.ngt      # <= plain html
+myTemplate.ngt.haml # <= can also use preprocessors!
+```
+
+```coffeescript
+# in your code, you can just reference the path without extensions
+#=require myTemplate
+
+//= require my_template
+
+angular.module('myApp').directive('myDirective', function($injectable){
+  { restrict: 'A'
+    templateUrl: 'my_template'
+    // Etc...
+  }
+});
+```
 
 ###  Include in global module (recommended)
 
@@ -66,6 +87,7 @@ production!
 (named after the template), and use the template path as your templateURL
     
     ```javascript
+    // This first line is the only additional step needed!
     //= require full/path/to/my_template
     
     angular.module('myApp', ['/full/path/to/myTemplate.html']).directive('myDirective', function($injectable){
