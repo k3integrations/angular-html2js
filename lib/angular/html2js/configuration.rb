@@ -16,7 +16,7 @@ module Angular
 
 
     class Configuration
-      attr_accessor :module_name, :post_process_html
+      attr_accessor :module_name
 
       def cache_id(&block)
         if block
@@ -33,6 +33,11 @@ module Angular
       def method_missing(config_name, *)
         puts "Sorry, there is no such configuration option named #{config_name}"
         super
+      end
+
+      def init_sprockets
+        Sprockets.register_engine '.haml', Tilt::HamlTemplate
+        Sprockets.register_engine '.ngt', Angular::Html2js::Engine
       end
     end
   end

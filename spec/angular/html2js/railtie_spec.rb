@@ -10,28 +10,27 @@ require 'capybara/rails'
 module Angular
   module Html2js
     describe Railtie, type: :feature do
-      before(:all) do
-      end
-
       before(:each) { FileUtils.rm_rf Rails.root.join('tmp', 'cache', 'assets', 'test') }
 
       it "sets up rails to serve ng templates" do
-        visit '/assets/templates/test.js'
+        visit '/assets/templates/test.ngt'
         page.should have_content "$templateCache"
         page.should have_content "Hello World"
       end
 
       it "enables Haml for js assets" do
-        visit '/assets/templates/test_haml.html'
+        visit '/assets/templates/test_haml.ngt'
         page.should have_content "$templateCache"
         page.body.should include "<h1>hello haml</h1>"
       end
 
       describe 'file with .html extension' do
         it 'is processed by default' do
-          visit '/assets/templates/test_html.html'
-          page.should have_content "$templateCache"
-          page.body.should include "<h1>hello html</h1>"
+          pending 'html extension support' do
+            visit '/assets/templates/test_html.js'
+            page.should have_content "$templateCache"
+            page.body.should include "<h1>hello html</h1>"
+          end
         end
       end
 

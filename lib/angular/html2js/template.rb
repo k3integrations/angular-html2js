@@ -6,7 +6,9 @@ module Angular
     class Template < Tilt::Template
       attr_accessor :file
 
-      self.default_mime_type = 'application/javascript'
+      def self.default_mime_type
+        'application/javascript'
+      end
 
       TEMPLATE = <<-TEMPLATE
 angular.module(\'%s\', []).run(function($templateCache) {
