@@ -36,7 +36,7 @@ All source files need to have the extension `.ngt`.
 
 ```
 myTemplate.ngt      # <= plain html
-myTemplate.ngt.haml # <= can also use preprocessors!
+myTemplate.ngt.haml # <= haml!
 ```
 
 ```coffeescript
