@@ -19,7 +19,7 @@ module Angular
       end
 
       it "enables Haml for js assets" do
-        visit '/assets/templates/test_haml.ngt'
+        visit '/assets/templates/test_haml.js'
         page.should have_content "$templateCache"
         page.body.should include "<h1>hello haml</h1>"
       end

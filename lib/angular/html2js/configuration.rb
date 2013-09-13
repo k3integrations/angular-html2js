@@ -1,3 +1,6 @@
+require 'sprockets'
+require 'angular/html2js/haml'
+
 module Angular
   module Html2js
     def self.configure
@@ -36,7 +39,9 @@ module Angular
       end
 
       def init_sprockets
-        Sprockets.register_engine '.haml', Tilt::HamlTemplate
+        # hack around bug in rails assets debug mode
+        # TODO: remove this once this bug is resolved: https://github.com/sstephenson/sprockets/issues/478
+        Sprockets.register_engine '.haml', Angular::Html2js::Haml
         Sprockets.register_engine '.ngt', Angular::Html2js::Engine
       end
     end
