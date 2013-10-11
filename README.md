@@ -152,6 +152,14 @@ angular.module('myApp').directive('myDirective', function($injectable){
       }
     });
     ```
+    
+## Important Note:
+
+If you change anything in the configuration, be sure you clear your asset cache to ensure the templates get
+updated. You can do this in a Rails app by running `rake tmp:clear` or `rm -rf tmp/cache/assets` from the app root.
+
+This is necessary because Sprockets is only designed to watch the asset _source files_ for changes. It is unaware
+that the template files have a dependency on the application configuration and therefore doesn't regenerate the templates.
 
 ## Contributing
 
