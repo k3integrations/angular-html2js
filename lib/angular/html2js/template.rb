@@ -11,24 +11,24 @@ module Angular
       end
 
       TEMPLATE = <<-TEMPLATE
-angular.module(\'%s\', []).run(function($templateCache) {
-  $templateCache.put(\'%s\',
-  \'%s\');
-});
+angular.module('%s', []).run(['$templateCache', function($templateCache) {
+  $templateCache.put('%s',
+  '%s');
+}]);
       TEMPLATE
 
 
       SINGLE_MODULE_TPL = <<-SINGLE_MODULE_TPL
 (function(module) {
   try {
-    module = angular.module(\'%s\');
+    module = angular.module('%s');
   } catch (e) {
-    module = angular.module(\'%s\', []);
+    module = angular.module('%s', []);
   }
-  module.run(function($templateCache) {
-    $templateCache.put(\'%s\',
-    \'%s\');
-  });
+  module.run(['$templateCache', function($templateCache) {
+    $templateCache.put('%s',
+    '%s');
+  }]);
 })();
       SINGLE_MODULE_TPL
 
