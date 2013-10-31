@@ -2,7 +2,11 @@ class AngularModule
   constructor: (@name, @deps) ->
     templates = @templates = {}
 
-  run: (block) ->
+  run: (injectable) ->
+    if injectable instanceof Array
+      [injected..., block] = injectable
+    else
+      block = injectable
     block
       put: (id, content) =>
         @templates[id] = content
