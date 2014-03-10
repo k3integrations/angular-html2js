@@ -2,7 +2,7 @@
 
 Angular-html2js is based off the Karma [preprocessor](https://github.com/karma-runner/karma-ng-html2js-preprocessor)
 that many Angular folks use. This gem makes your templates available through the Rails asset pipeline, Sprockets,
-or Tilt, while still acting like Karam's ng-html2js. So it should feel familiar to those already
+or Tilt, while still acting like Karma's ng-html2js. So it should feel familiar to those already
 using ng-html2js and should be less confusing for those following instructions in online
 tutorials. 
 
